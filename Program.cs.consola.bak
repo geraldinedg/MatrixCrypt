@@ -1,0 +1,150 @@
+﻿using System;
+using System.Collections.Generic;
+
+namespace ProyectoFDP
+{
+    class Program 
+    {
+        static void Main(){ 
+            double[,] A = { {1,-2,2}, {-1 ,1 , 3}, {1,-1,-4}} ; 
+
+            double Determinante = ModuloMatematico.CalcularDeterminante(A); 
+
+            if(!ModuloMatematico.VerificarInversa(Determinante))
+            {
+                ModuloSalida.MostrarError("La matriz no es invertible"); 
+                return;
+            }
+
+            double[,] Ainversa = ModuloMatematico.CalcularMatrizInversa(A); 
+
+            int opcion;
+             do
+            {
+                ModuloInteraccion.MostrarMenu();
+                opcion = ModuloInteraccion.LeerOpcion();
+
+                switch (opcion)
+                {
+                    case 1: // Encriptar
+                        {
+                            string Mensaje = ModuloInteraccion.MensajeEncriptar();
+
+                            int[] Codigo = ModuloProcesamientoTexto.TextoMatriz(Mensaje);
+
+                            int[] MatrizCompleta = ModuloProcesamientoTexto.CompletarCeros(Codigo);
+
+                            int[,] Matrices = ModuloProcesamientoTexto.AgrupacionMatriz(MatrizCompleta);
+
+                            int cantidadFilas = Matrices.GetLength(0); //cantidad de filas de la matriz 
+
+                            int[,] MatricesCodificadas = new int[cantidadFilas, 3];
+
+                            for (int fila = 0; fila < cantidadFilas; fila++)
+                            {
+                                double[] X = { Matrices[fila, 0], Matrices[fila, 1], Matrices[fila, 2] };
+                                double[] Y = ModuloMatematico.MultiplicarMatrices(X, A);
+
+                                MatricesCodificadas[fila, 0] = (int)Math.Round(Y[0]);
+                                MatricesCodificadas[fila, 1] = (int)Math.Round(Y[1]);
+                                MatricesCodificadas[fila, 2] = (int)Math.Round(Y[2]);
+                            }
+
+                            int[] Criptograma = ModuloRecuperacion.UnirMatrices(MatricesCodificadas);
+                            ModuloSalida.MostrarCriptograma(Criptograma);
+                            break;
+                        }
+
+                    case 2: // Desencriptar
+                        {
+                            int[] Criptograma = ModuloInteraccion.CriptogramaDesencriptar();
+
+                            int[,] Matrices = ModuloProcesamientoTexto.AgrupacionMatriz(Criptograma);
+
+                            int cantidadFilas = Matrices.GetLength(0);
+                            int[,] MatricesDescodificadas = new int[cantidadFilas, 3];
+
+                            for (int fila = 0; fila < cantidadFilas; fila++)
+                            {
+                                double[] Y = { Matrices[fila, 0], Matrices[fila, 1], Matrices[fila, 2] };
+                                double[] X = ModuloMatematico.MultiplicarMatrices(Y, Ainversa); //multiplicar por su inversa
+
+                                MatricesDescodificadas[fila, 0] = (int)Math.Round(X[0]);
+                                MatricesDescodificadas[fila, 1] = (int)Math.Round(X[1]);
+                                MatricesDescodificadas[fila, 2] = (int)Math.Round(X[2]);
+                            }
+
+                            string mensaje = ModuloRecuperacion.MatricesTexto(MatricesDescodificadas);
+                            ModuloSalida.MostrarMensaje(mensaje);
+                            break;
+                        }
+
+                    case 3: // Encriptar y desencriptar
+                        {
+                            string Mensaje = ModuloInteraccion.MensajeEncriptar();
+
+                            int[] Codigo = ModuloProcesamientoTexto.TextoMatriz(Mensaje);
+
+                            int[] MatrizCompleta = ModuloProcesamientoTexto.CompletarCeros(Codigo);
+
+                            int[,] Matrices = ModuloProcesamientoTexto.AgrupacionMatriz(MatrizCompleta);
+
+                            int cantidadFilas = Matrices.GetLength(0); //cantidad de filas de la matriz 
+
+                            int[,] MatricesCodificadas = new int[cantidadFilas, 3];
+
+                            for (int fila = 0; fila < cantidadFilas; fila++)
+                            {
+                                double[] X = { Matrices[fila, 0], Matrices[fila, 1], Matrices[fila, 2] };
+                                double[] Y = ModuloMatematico.MultiplicarMatrices(X, A);
+
+                                MatricesCodificadas[fila, 0] = (int)Math.Round(Y[0]);
+                                MatricesCodificadas[fila, 1] = (int)Math.Round(Y[1]);
+                                MatricesCodificadas[fila, 2] = (int)Math.Round(Y[2]);
+                            }
+
+                            int[] Criptograma = ModuloRecuperacion.UnirMatrices(MatricesCodificadas);
+                            ModuloSalida.MostrarCriptograma(Criptograma);
+                         
+
+                            int[,] MatricesY2 = ModuloProcesamientoTexto.AgrupacionMatriz(Criptograma);
+                            int[,] MatricesXRecuperadas = new int[cantidadFilas, 3];
+
+                            for (int fila = 0; fila < cantidadFilas; fila++)
+                            {
+                                double[] Y2 = { MatricesY2[fila, 0], MatricesY2[fila, 1], MatricesY2[fila, 2] };
+                                double[] X2 = ModuloMatematico.MultiplicarMatrices(Y2, Ainversa);
+
+                                MatricesXRecuperadas[fila, 0] = (int)Math.Round(X2[0]);
+                                MatricesXRecuperadas[fila, 1] = (int)Math.Round(X2[1]);
+                                MatricesXRecuperadas[fila, 2] = (int)Math.Round(X2[2]);
+                            }
+
+                            string mensajeRecuperado = ModuloRecuperacion.MatricesTexto(MatricesXRecuperadas);
+                            ModuloSalida.MostrarMensaje(mensajeRecuperado);
+
+                            if (mensajeRecuperado. Trim().ToUpper()==Mensaje.Trim().ToUpper())
+                            {
+                                Console.WriteLine("El mensaje coincide con el original");
+                            }
+                            else
+                            {
+                                Console.WriteLine("El mensaje NO coincide con el original");
+                            }
+                            break;
+                        }
+
+                    case 4: // Salir
+                        Console.WriteLine("¡Gracias por usar el programa!");
+                        break;
+
+                    default:
+                        ModuloSalida.MostrarError("Opcion no valida");
+                        break;
+                }
+
+            } while (opcion != 4);
+        }
+    }
+}
+      
