@@ -54,14 +54,19 @@ ProyectoFinal/
 ├── MainWindow.xaml.cs                  # Lógica de la interfaz y navegación
 
 ├── ModuloMatematico.cs                 # Operaciones con matrices (determinante, inversa, multiplicación)
+
 ├── ModuloProcesamientoTexto.cs         # Conversión de texto a números y relleno de matrices
+
 ├── ModuloRecuperacion.cs               # Conversión de matrices descifradas de vuelta a texto
+
 ├── ModuloSalida.cs                     # Utilidades de salida (heredadas de la versión de consola)
+
 ├── ModuloInteraccion.cs                # Utilidades de interacción con el usuario
+
 └── ProyectoFinal.csproj                # Configuración del proyecto (.NET, WPF)
 
 
-//Capturas
+
 <img width="676" height="401" alt="image" src="https://github.com/user-attachments/assets/ecd1f9c1-afa5-4ff3-a488-99721eaeac08" />
 
 
