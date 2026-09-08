@@ -1,10 +1,10 @@
 MatrixCrypt -- Cifrado de mensajes Hill Cipher
 
--Descripción
+//Descripción
 MatrixCrypt es una aplicación de escritorio que implementa el cifrado de Hill (Hill Cipher), un método de criptografía clásica basado en álgebra lineal.
 El proyecto permite encriptar mensajes de texto, desencriptarlos y verificar que el proceso de ida y vuelta recupere exactamente el mensaje original.
 
--Lógica matemática — Álgebra lineal (matrices)
+//Lógica matemática — Álgebra lineal (matrices)
 
 Conversión de texto a vectores numéricos, asignando un valor entero a cada carácter.
 Agrupación en matrices de 3x3, sobre las que se aplican las operaciones de cifrado.
@@ -12,7 +12,7 @@ Multiplicación de matrices entre el mensaje (en forma numérica) y una matriz c
 Cálculo de determinante e inversa de la matriz clave, condición necesaria para poder descifrar el mensaje: la matriz clave debe ser invertible, y por eso se valida automáticamente al iniciar la aplicación.
 Multiplicación por la matriz inversa para revertir el proceso y recuperar el mensaje original a partir del criptograma.
 
--Modularización — Diversificación de procesos
+//Modularización — Diversificación de procesos
 
 Un módulo dedicado exclusivamente a las operaciones matemáticas con matrices (determinante, inversa, multiplicación).
 Un módulo para el procesamiento de texto (conversión de caracteres a números y relleno de matrices incompletas).
@@ -21,12 +21,12 @@ Un módulo de interacción y otro de salida, heredados de la lógica original de
 
 Esta separación por módulos permite que la lógica matemática esté desacoplada de la interfaz gráfica, facilitando su prueba, mantenimiento y reutilización.
 
--Tecnologías utilizadas
+//Tecnologías utilizadas
 C#
 WPF (Windows Presentation Foundation)
 .NET 10
 
--Funcionalidades
+//Funcionalidades
 
 Inicio — pantalla de bienvenida.
 Encriptar — convierte un mensaje de texto en un criptograma (secuencia de números enteros).
@@ -42,11 +42,7 @@ Visual Studio 2022 (o posterior) con la carga de trabajo ".NET desktop developme
 
 
 //Estructuración 
-bash
-dotnet build
-dotnet run
-Estructura del proyecto
-ProyectoFinal/
+
 ├── App.xaml / App.xaml.cs              # Punto de entrada de la aplicación WPF
 
 ├── MainWindow.xaml                     # Interfaz gráfica (paneles, estilos, controles)
