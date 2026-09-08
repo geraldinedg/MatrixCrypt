@@ -22,8 +22,13 @@ Un módulo de interacción y otro de salida, heredados de la lógica original de
 Esta separación por módulos permite que la lógica matemática esté desacoplada de la interfaz gráfica, facilitando su prueba, mantenimiento y reutilización.
 
 //Tecnologías utilizadas
+
 C#
+
+XAML
+
 WPF (Windows Presentation Foundation)
+
 .NET 10
 
 //Funcionalidades
@@ -61,7 +66,7 @@ Visual Studio 2022 (o posterior) con la carga de trabajo ".NET desktop developme
 
 └── ProyectoFinal.csproj                # Configuración del proyecto (.NET, WPF)
 
-
+//Interfaz
 
 <img width="676" height="401" alt="image" src="https://github.com/user-attachments/assets/ecd1f9c1-afa5-4ff3-a488-99721eaeac08" />
 
